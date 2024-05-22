@@ -1,0 +1,34 @@
+#!/bin/bash
+set -eo pipefail
+
+usage() {
+	cat <<-__EOF__
+		usage: rsync-backup-gc [-h] [-c COUNT]
+
+		Delete old backups
+
+		options:
+		 -c  keep the last COUNT backups
+		 -h  Show this help
+	__EOF__
+	exit $1
+}
+
+source ~/.config/rsync-backup
+SNAPSHOT_COUNT="30"
+
+# Parse args
+while getopts "hc:" opt; do
+	case $opt in
+		c) SNAPSHOT_COUNT="$OPTARG";;
+		h) usage 0;;
+		'?') usage "1" >&2;;
+	esac
+done
+shift $(( $OPTIND - 1))
+
+ssh $REMOTE_HOST "ls -1 $REMOTE_PATH/$BACKUP_NAME" \
+| grep -v latest \
+| sort \
+| head -n-${SNAPSHOT_COUNT} \
+| xargs --verbose -I% echo ssh $REMOTE_HOST "rm -rf $REMOTE_PATH/$BACKUP_NAME/%"

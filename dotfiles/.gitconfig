@@ -1,0 +1,36 @@
+[alias]
+    b = "branch"
+    ci = "commit"
+    cia = "commit --amend"
+    co = "checkout"
+    pu = "push"
+    s = "status"
+    st = "status"
+
+[core]
+    symlinks = true
+
+[credential]
+    helper = "store --file ~/.git-credentials"
+
+[delta]
+    features = "decorations"
+    light = false
+    navigate = true
+    side-by-side = true
+
+[init]
+    defaultBranch = "master"
+
+[pull]
+    rebase = true
+
+[rebase]
+    autoStash = true
+
+[user]
+    email = "maxou@integratedintegrals.com"
+    name = "Maxou Verzou"
+
+[include]
+    path = .gitconfig-tools

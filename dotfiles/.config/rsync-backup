@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export BACKUP_NAME="$(whoami)@$(hostname)"
+export REMOTE_HOST="nas.local"
+export REMOTE_PATH="/volume1/NetBackup"

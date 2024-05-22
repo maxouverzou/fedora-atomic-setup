@@ -1,0 +1,8 @@
+[core]
+    pager = "delta"
+
+[delta]
+    features = "decorations"
+    light = false
+    navigate = true
+    side-by-side = true

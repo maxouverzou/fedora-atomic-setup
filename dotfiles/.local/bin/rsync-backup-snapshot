@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+
+usage() {
+	cat <<-__EOF__
+		usage: rsync-backup-snapshot [-hv]
+
+		Send a snapshot to the nas 
+
+		options:
+		 -v  Verbose
+		 -c  Compress
+		 -h  Show this help
+	__EOF__
+	exit $1
+}
+
+source ~/.config/rsync-backup
+DST="$REMOTE_PATH/$BACKUP_NAME/$(date +%Y-%m-%d)"
+LATEST="$REMOTE_PATH/$BACKUP_NAME/latest"
+RSYNC_ARGS=""
+
+# Parse args
+while getopts "hcv" opt; do
+	case $opt in
+		c) RSYNC_ARGS="$RSYNC_ARGS --compress";;
+		v) RSYNC_ARGS="$RSYNC_ARGS --partial --progress --human-readable";;
+		h) usage 0;;
+		'?') usage "1" >&2;;
+	esac
+done
+shift $(( $OPTIND - 1))
+
+ssh $REMOTE_HOST "set -e; test ! -d $DST; mkdir --parents $DST"
+rsync \
+	--archive $RSYNC_ARGS \
+	--rsh ssh \
+	--link-dest=$LATEST \
+	--filter="merge $HOME/.config/rsync-backup.filter" \
+	"$HOME/" $REMOTE_HOST:$DST
+ssh $REMOTE_HOST ln --symbolic --force --no-dereference --relative $DST $LATEST

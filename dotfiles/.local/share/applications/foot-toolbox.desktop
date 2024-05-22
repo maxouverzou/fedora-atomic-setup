@@ -1,0 +1,20 @@
+[Desktop Entry]
+Categories=System;TerminalEmulator;
+Comment[en_US]=A wayland native terminal emulator
+Comment=A wayland native terminal emulator
+Exec=env SHELL=~/.nix-profile/bin/fish foot toolbox enter
+GenericName[en_US]=Terminal
+GenericName=Terminal
+Icon=foot
+Keywords=shell;prompt;command;commandline;
+MimeType=
+Name[en_US]=Toolbox
+Name=Toolbox
+Path=
+StartupNotify=true
+StartupWMClass=foot
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=

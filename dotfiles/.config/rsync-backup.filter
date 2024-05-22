@@ -1,0 +1,19 @@
+# Exclude patterns
+
+- node_modules/***
+- venv/***
+- .venv/***
+- .direnv/***
+- __pycache__/***
+- *.pyc
+
+# Include patterns
+
++ /Documents/***
++ /Music/***
++ /Pictures/***
++ /Projects/***
++ /Videos/***
+
+# Exclude everything else
+- /**

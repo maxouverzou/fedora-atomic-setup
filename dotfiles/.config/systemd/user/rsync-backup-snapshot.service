@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup %h to nas.local
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash %h/.local/bin/rsync-backup-snapshot
+RemainAfterExit=no
+
+[Install]
+WantedBy=default.target

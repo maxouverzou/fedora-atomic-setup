@@ -1,0 +1,14 @@
+# flatpak has access to ssh-agent but not the keys
+
+[Unit]
+Description=Add keys to ssh-agent
+PartOf=ssh-agent.service
+After=ssh-agent.service ssh-agent.socket
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ssh-add %h/.ssh/id_ed25519
+RemainAfterExit=yes
+
+[Install]
+WantedBy=ssh-agent.service
